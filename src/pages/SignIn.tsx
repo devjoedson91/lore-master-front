@@ -1,10 +1,36 @@
-import { FormEvent } from 'react';
-import { Link } from 'react-router-dom';
+import { FormEvent, useContext, useEffect, useState } from 'react';
 import logo from '../assets/logo-login.png';
+import { useNavigate } from 'react-router-dom';
+import { AuthContext } from '../contexts/AuthContext';
+import { toast } from 'react-toastify';
 
 export function SignIn() {
-    function handleLogin(event: FormEvent) {
+    const navigate = useNavigate();
+
+    const { isAuthenticated, signIn } = useContext(AuthContext);
+
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+
+    useEffect(() => {
+        if (isAuthenticated) {
+            navigate('/dashboard');
+        }
+    }, [navigate, isAuthenticated]);
+
+    async function handleLogin(event: FormEvent) {
         event.preventDefault();
+
+        if (email === '' || password === '') {
+            toast.warning('Preencha todos os campos de login');
+            return;
+        }
+
+        let data = { email, password };
+
+        await signIn(data);
+
+        navigate('/dashboard');
     }
 
     return (
@@ -17,21 +43,26 @@ export function SignIn() {
                 <form onSubmit={handleLogin} className="w-full flex flex-col gap-1">
                     <input
                         type="text"
-                        className="font-inter mb-4 h-10 p-4 border-2 border-slate-300 rounded-sm text-sm shadow-sm placeholder-slate-400 focus:outline-none focus:border-sky-600 focus:ring-1 focus:ring-sky-600 auto"
+                        className="font-inter mb-4 h-10 p-4 border-2 rounded-sm text-sm shadow-sm placeholder-slate-600 focus:outline-none focus:border-sky-600 focus:ring-1 focus:ring-sky-600 focus:border-2  bg-gray-400"
                         placeholder="Email"
                         id="login"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                        autoFocus={true}
                     />
                     <input
                         type="password"
-                        className="mb-4 h-10 p-4 border-2 border-slate-300 rounded-sm text-sm shadow-sm placeholder-slate-400 focus:outline-none focus:border-sky-600 focus:ring-1 focus:ring-sky-600 auto"
+                        className="mb-4 h-10 p-4 border-2 rounded-sm text-sm shadow-sm placeholder-slate-600 focus:outline-none focus:border-sky-600 focus:ring-1 focus:ring-sky-600 focus:border-2 auto bg-gray-400"
                         placeholder="Senha"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
                     />
-                    <Link
-                        to="/dashboard"
-                        className="bg-accessBtn py-1 px-4 text-white self-end rounded-sm hover:bg-sky-600"
+                    <button
+                        className="bg-sky-800 py-1 px-4 text-white self-end rounded-sm hover:bg-sky-600"
+                        onClick={handleLogin}
                     >
                         Entrar
-                    </Link>
+                    </button>
                 </form>
             </div>
         </div>
