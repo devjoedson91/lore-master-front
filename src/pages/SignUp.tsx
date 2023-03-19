@@ -5,11 +5,12 @@ import { AuthContext } from '../contexts/AuthContext';
 import { toast } from 'react-toastify';
 import { Input } from '../components/Input';
 
-export function SignIn() {
+export function SignUp() {
     const navigate = useNavigate();
 
-    const { isAuthenticated, signIn } = useContext(AuthContext);
+    const { isAuthenticated, signUp } = useContext(AuthContext);
 
+    const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
@@ -19,35 +20,41 @@ export function SignIn() {
         }
     }, [navigate, isAuthenticated]);
 
-    async function handleLogin(event: FormEvent) {
+    async function handleSignUp(event: FormEvent) {
         event.preventDefault();
 
-        if (email === '' || password === '') {
+        if (name === '' || email === '' || password === '') {
             toast.warning('Preencha todos os campos de login');
             return;
         }
 
-        let data = { email, password };
+        let data = { name, email, password };
 
-        await signIn(data);
+        await signUp(data);
 
-        navigate('/dashboard');
+        navigate('/');
     }
 
     return (
         <div className="w-screen h-screen grid place-content-center">
             <div className="rounded-lg bg-white w-80 shadow-md flex items-center justify-center flex-col px-8 py-6 gap-6">
                 <img src={logo} alt="knowledge" width={100} />
-                <label className="block font-inter font-bold" htmlFor="login">
-                    Login
+                <label className="block font-inter font-bold" htmlFor="cadastro">
+                    Cadastro
                 </label>
-                <form onSubmit={handleLogin} className="w-full flex flex-col gap-1">
+                <form onSubmit={handleSignUp} className="w-full flex flex-col gap-1">
                     <Input
                         type="text"
-                        placeholder="Email"
-                        id="login"
-                        value={email}
+                        placeholder="Nome"
+                        value={name}
+                        onChange={(event) => setName(event.target.value)}
                         autoFocus={true}
+                        id="cadastro"
+                    />
+                    <Input
+                        type="text"
+                        placeholder="email"
+                        value={email}
                         onChange={(event) => setEmail(event.target.value)}
                     />
                     <Input
@@ -56,16 +63,13 @@ export function SignIn() {
                         value={password}
                         onChange={(event) => setPassword(event.target.value)}
                     />
-                    <button
-                        className="bg-sky-800 py-1 px-4 text-white self-end rounded-sm hover:bg-sky-600"
-                        onClick={handleLogin}
-                    >
-                        Entrar
+                    <button className="bg-sky-800 py-1 px-4 text-white self-end rounded-sm hover:bg-sky-600">
+                        Cadastrar
                     </button>
                 </form>
-                <a className="cursor-pointer" onClick={() => navigate('/signup')}>
+                <a className="cursor-pointer" onClick={() => navigate('/')}>
                     <span className="font-inter text-xs font-medium text-green-700">
-                        Não tem cadastro? Registre-se aqui!
+                        Já tem cadastro? Acesse o Login!
                     </span>
                 </a>
             </div>

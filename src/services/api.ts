@@ -23,7 +23,7 @@ export function setupAPIClient(ctx = undefined) {
 
             if (typeof window !== undefined) {
 
-                
+                // logOut
 
             } else {
 

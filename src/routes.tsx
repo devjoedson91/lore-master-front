@@ -2,6 +2,7 @@ import { useContext } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import { AuthContext } from './contexts/AuthContext';
 import { SignIn } from './pages/SignIn';
+import { SignUp } from './pages/SignUp';
 import { Dashboard } from './pages/Dashboard';
 
 interface PrivateRouteProps {
@@ -19,6 +20,7 @@ export function AppRoutes() {
     return (
         <Routes>
             <Route path="/" element={<SignIn />} />
+            <Route path="/signup" element={<SignUp />} />
             <Route
                 path="/dashboard"
                 element={

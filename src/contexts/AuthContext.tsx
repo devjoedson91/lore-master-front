@@ -27,9 +27,10 @@ type AuthProviderProps = {
 type AuthContextData = {
     user: UserProps;
     isAuthenticated: boolean;
+    loadingAuth: boolean;
     signIn: (credentials: SignInProps) => Promise<void>;
     logOut: () => void;
-    // signUp: (credentials: SignUp) => Promise<void>;
+    signUp: (credentials: SignUpProps) => Promise<void>;
 };
 
 export const AuthContext = createContext({} as AuthContextData);
@@ -41,6 +42,8 @@ export function AuthProvider({ children }: AuthProviderProps) {
         email: '',
         token: '',
     });
+
+    const [loadingAuth, setLoadingAuth] = useState(false);
 
     const isAuthenticated = !!user.name;
 
@@ -60,12 +63,16 @@ export function AuthProvider({ children }: AuthProviderProps) {
                     token: hasUser.token,
                 });
             }
+
+            setLoadingAuth(false);
         }
 
         getUser();
     }, []);
 
     async function signIn({ email, password }: SignInProps) {
+        setLoadingAuth(true);
+
         try {
             const response = await api.post('/session', { email, password });
 
@@ -80,11 +87,27 @@ export function AuthProvider({ children }: AuthProviderProps) {
             setUser({ id, name, email, token });
 
             // api.defaults.headers['authorization'] = `Bearer ${token}`;
-
+            setLoadingAuth(false);
             toast.success('Logado com sucesso!');
         } catch (err) {
+            setLoadingAuth(false);
             toast.error('Erro ao acessar');
             console.log('Erro ao acessar: ', err);
+        }
+    }
+
+    async function signUp({ name, email, password }: SignUpProps) {
+        setLoadingAuth(true);
+
+        try {
+            const response = await api.post('/signup', { name, email, password });
+            setLoadingAuth(false);
+
+            toast.success('Usuário cadastrado com sucesso.');
+        } catch (err) {
+            toast.error(`Erro ao cadastrar usuário: ${err}`);
+            console.log('Erro ao cadastrar usuário: ', err);
+            setLoadingAuth(false);
         }
     }
 
@@ -105,7 +128,9 @@ export function AuthProvider({ children }: AuthProviderProps) {
     }
 
     return (
-        <AuthContext.Provider value={{ user, isAuthenticated, signIn, logOut }}>
+        <AuthContext.Provider
+            value={{ user, isAuthenticated, loadingAuth, signIn, logOut, signUp }}
+        >
             {children}
         </AuthContext.Provider>
     );
