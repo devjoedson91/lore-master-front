@@ -2,7 +2,7 @@ import LoadingGif from '../assets/loading.gif';
 
 export function Loading() {
     return (
-        <div className="w-full h-full flex justify-center items-center">
+        <div className="bg-white h-screen flex justify-center items-center">
             <img src={LoadingGif} alt="loading" />
         </div>
     );

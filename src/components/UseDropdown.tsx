@@ -15,11 +15,14 @@ export function UseDropdown() {
                 </div>
                 <CaretDown size={15} color="#fff" />
             </div>
-            <div className="group-hover:visible group-hover:opacity-100 absolute right-0 bg-slate-200 min-w-[170px] shadow-md p-3 z-[1] flex flex-col flex-wrap gap-2 invisible opacity-0 transition duration-[0.5s]">
-                <a className="flex gap-2 cursor-pointer">
+            <div className="group-hover:visible group-hover:opacity-100 absolute right-0 bg-slate-200 min-w-[170px] shadow-md p-2 z-[1] flex flex-col flex-wrap gap-1 invisible opacity-0 transition duration-[0.5s]">
+                <a className="flex items-center gap-2 cursor-pointer py-2 px-1 rounded-md hover:bg-slate-300">
                     <Gear size={20} /> Administração
                 </a>
-                <a className="flex gap-2 cursor-pointer" onClick={logOut}>
+                <a
+                    className="flex items-center gap-2 cursor-pointer py-2 px-1 rounded-md hover:bg-slate-300"
+                    onClick={logOut}
+                >
                     <SignOut size={20} /> Sair
                 </a>
             </div>

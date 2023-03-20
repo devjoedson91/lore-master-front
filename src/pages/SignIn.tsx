@@ -3,7 +3,8 @@ import logo from '../assets/logo-login.png';
 import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../contexts/AuthContext';
 import { toast } from 'react-toastify';
-import { Input } from '../components/Input';
+import { Input } from '../components/ui/Input';
+import { Button } from '../components/ui/Button';
 
 export function SignIn() {
     const navigate = useNavigate();
@@ -56,15 +57,10 @@ export function SignIn() {
                         value={password}
                         onChange={(event) => setPassword(event.target.value)}
                     />
-                    <button
-                        className="bg-sky-800 py-1 px-4 text-white self-end rounded-sm hover:bg-sky-600"
-                        onClick={handleLogin}
-                    >
-                        Entrar
-                    </button>
+                    <Button>Entrar</Button>
                 </form>
                 <a className="cursor-pointer" onClick={() => navigate('/signup')}>
-                    <span className="font-inter text-xs font-medium text-green-700">
+                    <span className="font-inter text-xs font-medium text-green-700 hover:text-green-500">
                         Não tem cadastro? Registre-se aqui!
                     </span>
                 </a>

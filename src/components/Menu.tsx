@@ -1,4 +1,6 @@
+import { useContext, useEffect } from 'react';
 import { MagnifyingGlass } from 'phosphor-react';
+import { AuthContext } from '../contexts/AuthContext';
 
 export function Menu() {
     return (

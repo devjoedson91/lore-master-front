@@ -28,6 +28,8 @@ type AuthContextData = {
     user: UserProps;
     isAuthenticated: boolean;
     loadingAuth: boolean;
+    isMenuVisible: boolean;
+    toggleMenu: () => void;
     signIn: (credentials: SignInProps) => Promise<void>;
     logOut: () => void;
     signUp: (credentials: SignUpProps) => Promise<void>;
@@ -44,6 +46,11 @@ export function AuthProvider({ children }: AuthProviderProps) {
     });
 
     const [loadingAuth, setLoadingAuth] = useState(false);
+    const [isMenuVisible, setIsMenuVisible] = useState(true);
+
+    function toggleMenu() {
+        setIsMenuVisible(!isMenuVisible);
+    }
 
     const isAuthenticated = !!user.name;
 
@@ -129,7 +136,16 @@ export function AuthProvider({ children }: AuthProviderProps) {
 
     return (
         <AuthContext.Provider
-            value={{ user, isAuthenticated, loadingAuth, signIn, logOut, signUp }}
+            value={{
+                user,
+                isAuthenticated,
+                loadingAuth,
+                isMenuVisible,
+                toggleMenu,
+                signIn,
+                logOut,
+                signUp,
+            }}
         >
             {children}
         </AuthContext.Provider>

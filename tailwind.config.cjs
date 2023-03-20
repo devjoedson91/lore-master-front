@@ -8,8 +8,7 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        body: "#e6e6e6",
-        accessBtn: "#1e469a"
+        body: "#e6e6e6"
       },
       boxShadow: {
         default: "0rem 0.4rem 3.2rem rgba(15, 23, 42, 0.15)"
@@ -18,17 +17,22 @@ module.exports = {
         'inter': 'Inter, sans-serif'
       },
       gridTemplateAreas: {
-        'layout': [
+        'layout-a': [
           'aside main',
           'aside footer'
+        ],
+        'layout-b': [
+          'main main',
+          'footer footer'
         ],
       },
     },
     gridTemplateColumns: {
       6: '1fr 5fr',
+      1: 'repeat(1, minmax(0, 1fr))'
     },
     gridTemplateRows: {
-      2: '84vh 8vh'
+      2: '87vh 5vh'
     }
   },
   plugins: [
