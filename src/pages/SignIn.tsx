@@ -1,4 +1,4 @@
-import { FormEvent, useContext, useEffect, useState } from 'react';
+import { FormEvent, useContext, useState } from 'react';
 import logo from '../assets/logo-login.png';
 import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../contexts/AuthContext';
@@ -9,16 +9,10 @@ import { Button } from '../components/ui/Button';
 export function SignIn() {
     const navigate = useNavigate();
 
-    const { isAuthenticated, signIn } = useContext(AuthContext);
+    const { loadingAuth, isAuthenticated, signIn } = useContext(AuthContext);
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-
-    useEffect(() => {
-        if (isAuthenticated) {
-            navigate('/dashboard');
-        }
-    }, [navigate, isAuthenticated]);
 
     async function handleLogin(event: FormEvent) {
         event.preventDefault();
@@ -57,7 +51,9 @@ export function SignIn() {
                         value={password}
                         onChange={(event) => setPassword(event.target.value)}
                     />
-                    <Button>Entrar</Button>
+                    <Button variant="bg-sky-800" variantHover="hover:bg-sky-600">
+                        Entrar
+                    </Button>
                 </form>
                 <a className="cursor-pointer" onClick={() => navigate('/signup')}>
                     <span className="font-inter text-xs font-medium text-green-700 hover:text-green-500">

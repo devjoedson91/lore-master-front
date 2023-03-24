@@ -4,7 +4,7 @@ import { AuthContext } from '../contexts/AuthContext';
 
 export function Menu() {
     return (
-        <aside className="flex flex-col flex-wrap grid-in-aside bg-gradient-to-r from-gray-900 to-gray-700">
+        <aside className="flex flex-col flex-wrap grid-in-aside bg-gradient-to-r from-gray-900 to-gray-700 h-[calc(100vh-3rem)]">
             <div className="flex justify-center items-center m-5 p-2 border-b-2 border-gray-500">
                 <MagnifyingGlass size={32} color="#ccc" className="mr-3" />
                 <input

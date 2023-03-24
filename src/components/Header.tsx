@@ -8,7 +8,7 @@ export function Header() {
     const { isAuthenticated, isMenuVisible, toggleMenu } = useContext(AuthContext);
 
     return (
-        <header className="w-screen h-[8vh] bg-gradient-to-r from-green-700 to-green-500 flex items-center justify-between grid-in-header">
+        <header className="w-screen h-12 bg-gradient-to-r from-green-700 to-green-500 flex items-center justify-between grid-in-header">
             {isAuthenticated ? (
                 <a
                     className="w-[60px] h-full text-white flex justify-center items-center  hover:bg-green-600"

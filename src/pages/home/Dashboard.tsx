@@ -40,13 +40,13 @@ export function Dashboard() {
 
     return (
         <div
-            className={`grid ${isMenuVisible ? 'grid-areas-layout-a' : 'grid-areas-layout-b'}     ${
+            className={`grid ${isMenuVisible ? 'grid-areas-layout-a' : 'grid-areas-layout-b'} ${
                 isMenuVisible ? 'grid-cols-6' : 'grid-cols-1'
-            } grid-rows-2`}
+            }`}
         >
             {isMenuVisible ? <Menu /> : null}
-            <main className="grid-in-main bg-white p-5">
-                <PageTitle main="Dashboard" sub="Base de Conhecimento" icon={<House size={32} />} />
+            <main className="grid-in-main p-4 h-[calc(100vh-80px)]">
+                <PageTitle main="Dashboard" sub="Base de Conhecimento" icon={<House size={40} />} />
                 <div className="flex justify-between flex-wrap mt-4">
                     <Stat
                         title="Categorias"

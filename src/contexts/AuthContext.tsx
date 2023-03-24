@@ -56,6 +56,8 @@ export function AuthProvider({ children }: AuthProviderProps) {
 
     useEffect(() => {
         async function getUser() {
+            setLoadingAuth(true);
+
             const userInfo = await localStorage.getItem('@lore.token');
 
             let hasUser: UserProps = JSON.parse(userInfo || '{}');

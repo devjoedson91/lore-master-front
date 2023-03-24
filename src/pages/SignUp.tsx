@@ -64,7 +64,9 @@ export function SignUp() {
                         value={password}
                         onChange={(event) => setPassword(event.target.value)}
                     />
-                    <Button>Cadastrar</Button>
+                    <Button variant="bg-sky-800" variantHover="hover:bg-sky-600">
+                        Cadastrar
+                    </Button>
                 </form>
                 <a className="cursor-pointer" onClick={() => navigate('/')}>
                     <span className="font-inter text-xs font-medium text-green-700 hover:text-green-500">
