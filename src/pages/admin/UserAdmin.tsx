@@ -49,7 +49,22 @@ export function UserAdmin() {
     const passwordWatch = watch('password');
 
     const handleSaveUser = handleSubmit(async (data) => {
-        console.log(data);
+        try {
+            const response = await api.post('/user', {
+                name: data.name,
+                email: data.email,
+                password: data.password,
+                admin: data.admin,
+            });
+
+            reset();
+            listUsers();
+
+            toast.success('Usuário cadastrado com sucesso!');
+        } catch (err) {
+            toast.error('Erro ao cadastrar usuário');
+            console.log('Erro ao cadastrar usuário: ', err);
+        }
     });
 
     return (
